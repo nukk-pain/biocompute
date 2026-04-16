@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+dist/
+build/
+archive/runs/
+.env
+*.db
+.tasks/
+.sisyphus/
+CLAUDE.md
+AGENTS.md

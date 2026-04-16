@@ -1,0 +1,23 @@
+{
+  "diseases": [
+    {
+      "name": "Scar Tissue Hyperinnervation",
+      "description": "Chronic myofascial pain caused by aberrant nerve growth (hyperinnervation) in scar tissue. The CXCL12-CXCR4 chemokine signaling axis drives nociceptor sprouting into fibrotic tissue, leading to persistent pain.",
+      "keywords": ["scar pain", "hyperinnervation", "CXCL12", "myofascial", "fibrosis"]
+    },
+    {
+      "name": "Endometriosis",
+      "description": "Chronic pelvic pain from ectopic endometrial tissue growth. CXCL12-CXCR4 axis drives nerve infiltration into endometriotic lesions. Key features: estrogen-dependent proliferation, peritoneal inflammation, nociceptor sensitization.",
+      "keywords": ["endometriosis", "CXCL12", "pelvic pain", "nerve infiltration", "estrogen"]
+    },
+    {
+      "name": "Alzheimer Disease",
+      "description": "Progressive neurodegenerative disease characterized by amyloid-beta plaque accumulation, tau protein tangles, neuroinflammation, and synaptic loss.",
+      "keywords": ["alzheimer", "amyloid", "tau", "neurodegeneration", "dementia"]
+    }
+  ],
+  "settings": {
+    "generations": 3,
+    "population_size": 8
+  }
+}

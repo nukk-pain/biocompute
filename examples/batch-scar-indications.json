@@ -1,0 +1,33 @@
+{
+  "diseases": [
+    {
+      "name": "Hypertrophic Scarring",
+      "description": "Excessive collagen deposition and fibroblast proliferation in wound healing, resulting in raised, thickened scars. TGF-beta/Smad signaling drives myofibroblast activation. Mechanotransduction via focal adhesion kinase perpetuates fibrosis.",
+      "keywords": ["hypertrophic scar", "fibrosis", "collagen", "myofibroblast", "TGF-beta"]
+    },
+    {
+      "name": "Keloid Formation",
+      "description": "Pathological scar tissue extending beyond original wound margins. Characterized by excessive extracellular matrix deposition, aberrant immune response, and sustained inflammation. Higher incidence in darker skin types suggests genetic predisposition.",
+      "keywords": ["keloid", "fibrosis", "extracellular matrix", "wound healing", "collagen"]
+    },
+    {
+      "name": "Post-Surgical Adhesion",
+      "description": "Abnormal fibrous bands forming between tissues and organs after surgery. Peritoneal adhesions cause bowel obstruction, chronic pain, and infertility. Mesothelial cell injury triggers fibrin deposition and incomplete fibrinolysis.",
+      "keywords": ["adhesion", "peritoneal", "fibrinolysis", "mesothelial", "surgery"]
+    },
+    {
+      "name": "Dupuytren Contracture",
+      "description": "Progressive fibroproliferative disease of palmar fascia causing finger contracture. Myofibroblasts in Dupuytren's nodules produce excess collagen. Wnt/beta-catenin signaling implicated. No effective non-surgical treatment exists.",
+      "keywords": ["dupuytren", "palmar fascia", "fibrosis", "contracture", "myofibroblast"]
+    },
+    {
+      "name": "Peyronie Disease",
+      "description": "Fibrotic plaque formation in tunica albuginea of penis causing curvature, pain, and erectile dysfunction. TGF-beta1 drives fibroblast-to-myofibroblast transition. Oxidative stress and microvascular trauma initiate pathogenesis.",
+      "keywords": ["peyronie", "fibrosis", "tunica albuginea", "TGF-beta", "collagen"]
+    }
+  ],
+  "settings": {
+    "generations": 3,
+    "population_size": 10
+  }
+}
