@@ -5,133 +5,186 @@
 [![Status](https://img.shields.io/badge/status-research%20prototype-orange.svg)](#research-use-disclaimer)
 [![Version](https://img.shields.io/badge/version-0.1.0-lightgrey.svg)](pyproject.toml)
 
-BioCompute is a research prototype for generating and stress-testing therapeutic target hypotheses from a disease description.
+BioCompute turns a disease description into a ranked research worklist of therapeutic target hypotheses.
 
-It is built for the early question researchers often ask before committing weeks of literature review:
+Use it at the beginning of a target-discovery project, when you have a disease mechanism and want to quickly map candidate genes, pathways, modalities, evidence signals, and red flags before committing to a deeper literature or experimental review.
 
-> "Given this disease biology, which targets are worth investigating next — and what evidence or red flags should I check first?"
+BioCompute is built for questions such as:
 
-BioCompute combines LLM-generated hypotheses with structured evidence checks across several biological and translational dimensions. The output is not an answer. It is a ranked research worklist with supporting context and uncertainty signals.
+> "Given this disease biology, which targets are worth investigating next, and what should I check before taking them seriously?"
 
-## Contents
+The output is not just a score. It is an archived report that shows candidate targets, supporting evidence, critiques, prior-knowledge maturity, and uncertainty signals that a researcher or AI agent can inspect, verify, compare, and export.
 
-- [Quick start](#quick-start)
-- [Who should use this?](#who-should-use-this)
-- [When should you use it?](#when-should-you-use-it)
-- [What does it produce?](#what-does-it-produce)
-- [How it works at a high level](#how-it-works-at-a-high-level)
-- [Example use cases](#example-use-cases)
-- [Research-use disclaimer](#research-use-disclaimer)
-- [For AI agents and developers](#for-ai-agents-and-developers)
-- [License](#license)
+## Ask An AI Agent To Run It
 
-## Quick start
+Give an AI agent this repository and a task in this shape:
+
+```text
+Use BioCompute to run target discovery for:
+
+Disease: Idiopathic Pulmonary Fibrosis
+Description: Progressive lung fibrosis driven by epithelial injury, fibroblast activation, and extracellular matrix deposition.
+Keywords: fibrosis, fibroblast, lung
+
+Use the available LLM backend. Install dependencies if needed, run the discovery, find the generated run directory, summarize the report, and mention that outputs are research hypotheses only.
+```
+
+If the agent needs exact commands, tell it to follow the runbook below.
+
+## Agent Runbook
+
+### 1. Check prerequisites
+
+Confirm these are available:
+
+- Python 3.12 or newer
+- `uv`
+- one LLM backend: `claude`, `openai`, `openrouter`, or `codex`
 
 ```bash
-# 1. Install dependencies
-uv sync
+python --version
+uv --version
+```
 
-# 2. Run a discovery for one disease
-uv run biocompute discover "Myofascial Pain Syndrome" \
-  -d "Chronic pain from nerve hyperinnervation in fascial scar tissue" \
-  -k scar -k hyperinnervation -k fascia \
+### 2. Install dependencies
+
+```bash
+uv sync
+```
+
+### 3. Configure the LLM backend
+
+Default local Claude CLI backend:
+
+```bash
+export BIOCOMPUTE_LLM_BACKEND=claude
+```
+
+Official OpenAI API backend:
+
+```bash
+export BIOCOMPUTE_LLM_BACKEND=openai
+export OPENAI_API_KEY=your_key_here
+```
+
+OpenRouter backend:
+
+```bash
+export BIOCOMPUTE_LLM_BACKEND=openrouter
+export OPENROUTER_API_KEY=your_key_here
+```
+
+Codex auth backend:
+
+```bash
+codex login
+export BIOCOMPUTE_LLM_BACKEND=codex
+```
+
+Optional keys for higher public API rate limits:
+
+```bash
+export NCBI_API_KEY=your_key_here
+export S2_API_KEY=your_key_here
+```
+
+### 4. Run a discovery
+
+```bash
+uv run biocompute discover "Idiopathic Pulmonary Fibrosis" \
+  -d "Progressive lung fibrosis driven by epithelial injury, fibroblast activation, and extracellular matrix deposition" \
+  -k fibrosis -k fibroblast -k lung \
   -g 10
 ```
 
-This writes a run directory under `archive/runs/`. To re-read it later:
+The run writes artifacts under `archive/runs/`.
+
+### 5. Find the latest run directory
+
+```bash
+ls -td archive/runs/* | head -1
+```
+
+### 6. Read the report
 
 ```bash
 uv run biocompute report archive/runs/<run_dir>/
 ```
 
-By default BioCompute uses your local `claude` CLI as the LLM backend. To use
-OpenAI, OpenRouter, Codex auth, or the full command set, see
-[`docs/AI_USAGE.md`](docs/AI_USAGE.md).
+Expected run artifacts include:
 
-## Who should use this?
+- `config.json`
+- `run.db`
+- `report.md`
 
-BioCompute is most useful for:
+### 7. Verify top targets when deeper review is needed
 
-| User | When it helps |
-| --- | --- |
-| Translational researchers | You have a disease mechanism and want a first-pass target shortlist. |
-| Biotech founders or scouts | You are comparing disease areas and need a fast hypothesis map before deeper diligence. |
-| Computational biology builders | You want a compact example of an LLM + bio-data evidence loop. |
-| Academic labs | You want to turn a disease brief into candidate targets for journal-club or grant-planning discussion. |
-| AI agents | You need a CLI-driven target-discovery tool with archived outputs and verification steps. |
-
-## When should you use it?
-
-Use BioCompute when you have:
-
-- a disease or phenotype of interest;
-- a short description of the suspected biology;
-- a few keywords that define the mechanism, tissue, pathway, or clinical context;
-- a need to explore multiple target hypotheses quickly before manual review.
-
-Do **not** use it as a clinical, regulatory, investment, or treatment-decision system.
-
-## What does it produce?
-
-A run typically produces:
-
-- a ranked list of therapeutic target hypotheses;
-- per-target evidence dimensions such as literature, expression, pathway, druggability, safety, and IP/competitive context;
-- prior-knowledge notes that separate "novel hypothesis" from "already known / already failed / already clinically explored";
-- archived run artifacts so results can be reported, compared, exported, or verified later.
-
-The most important design choice is that BioCompute tries to show **why a candidate surfaced** and **what might make it weak**, not just a score.
-
-A single candidate in a report looks roughly like this (illustrative and abridged):
-
-```markdown
-### #1: NGF (fitness: 0.812)
-- **Modality:** small molecule / antibody
-- **Tissue:** fascial scar tissue
-- **Scores:** literature=0.88, expression=0.74, druggability=0.69, safety=0.55
-- **Evidence:**
-  - [literature] PMID:xxxxxxxx: NGF–TrkA signaling drives nociceptor sprouting.
-  - [expression] GTEx: elevated in connective/fascial tissue.
-- **Critiques:**
-  - Anti-NGF programs carry known joint-safety liabilities.
-- **Prior Knowledge:**
-  - **Maturity:** CLINICALLY_EXPLORED
-  - **Summary:** Anti-NGF antibodies reached late-stage trials for chronic pain.
+```bash
+uv run biocompute verify archive/runs/<run_dir>/ \
+  -n 3 \
+  -o archive/runs/<run_dir>/verification.md
 ```
 
-The point is not the score on the first line — it is the evidence, critiques, and
-prior-knowledge maturity that tell you whether a target is novel, crowded, or
-already a known dead end.
+### 8. Summarize results safely
 
-## How it works at a high level
+When reporting results, say:
 
-1. **Seed hypotheses** from a disease description and keywords.
-2. **Score evidence** across multiple biological and translational dimensions.
-3. **Select and mutate** candidates over several generations.
-4. **Critique candidates** with a skeptical LLM pass.
-5. **Enrich top results** with prior-knowledge assessment from literature and clinical context.
-6. **Archive outputs** for review, reporting, verification, and downstream handoff.
+- the output is a computational hypothesis list;
+- target rankings are not validated biology;
+- evidence and critiques should be reviewed by domain experts;
+- results must not be used for patient care, clinical decisions, regulatory claims, investment decisions, or IP conclusions.
 
-## Example use cases
+## Command Reference
 
-- "Find underexplored targets for chronic scar pain with hyperinnervation."
-- "Compare target opportunities for fibrosis-like disease mechanisms."
-- "Generate a first-pass target map before a wet-lab brainstorming session."
-- "Identify whether a target is likely novel, crowded, or already clinically problematic."
+```bash
+uv run biocompute --help
+```
 
-## Research-use disclaimer
+Commands:
+
+- `discover` - run therapeutic target discovery for one disease.
+- `report` - display a previous run report.
+- `verify` - verify top targets against literature evidence.
+- `calibrate` - check scoring behavior against calibration examples.
+- `batch` - run multiple disease discoveries from a config file.
+- `compare` - compare archived runs.
+- `export` - export archived results for downstream tools.
+- `pipeline` - run discovery plus optional downstream handoff.
+
+Full machine-oriented usage details live in [`docs/AI_USAGE.md`](docs/AI_USAGE.md).
+
+## What The Report Contains
+
+A run usually produces:
+
+- a ranked list of therapeutic target hypotheses;
+- evidence scores across literature, expression, pathway, druggability, safety, and competitive context;
+- critiques and red flags for high-ranking targets;
+- prior-knowledge notes that distinguish novel hypotheses from crowded or clinically explored target areas;
+- archived artifacts for review, comparison, verification, and export.
+
+Illustrative abbreviated report entry:
+
+```markdown
+### #1: ITGB6 (fitness: 0.812)
+- **Modality:** antibody / small molecule
+- **Tissue:** lung epithelium
+- **Scores:** literature=0.88, expression=0.74, druggability=0.69, safety=0.55
+- **Evidence:**
+  - [literature] PMID:xxxxxxxx: alpha-v beta-6 integrin can activate latent TGF-beta signaling in fibrotic lung disease.
+  - [expression] GTEx: enriched in epithelial tissue contexts.
+- **Critiques:**
+  - TGF-beta pathway modulation can carry broad safety and tolerability risks.
+- **Prior Knowledge:**
+  - **Maturity:** CLINICALLY_EXPLORED
+  - **Summary:** Integrin and TGF-beta pathway programs have been explored for fibrotic disease.
+```
+
+## Research-Use Disclaimer
 
 BioCompute is a research prototype for hypothesis generation only.
 
-It is **not** medical advice, clinical decision support, diagnostic software, regulatory advice, IP advice, or a substitute for expert biological and medical review. Outputs are unvalidated computational hypotheses. Do not use them to guide patient care, treatment decisions, clinical development, fundraising, investing, or IP strategy without independent expert validation.
-
-## For AI agents and developers
-
-Beyond the Quick start above, full operational details — every CLI command, LLM
-backend configuration, batch runs, calibration, tests, and live sanity workflows —
-live in the machine-oriented usage guide.
-
-See [`docs/AI_USAGE.md`](docs/AI_USAGE.md).
+It is not medical advice, clinical decision support, diagnostic software, regulatory advice, IP advice, or a substitute for expert biological and medical review. Outputs are unvalidated computational hypotheses. Do not use them to guide patient care, treatment decisions, clinical development, fundraising, investing, or IP strategy without independent expert validation.
 
 ## License
 
