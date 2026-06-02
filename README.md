@@ -15,6 +15,12 @@ BioCompute is built for questions such as:
 
 The output is not just a score. It is an archived report that shows candidate targets, supporting evidence, critiques, prior-knowledge maturity, and uncertainty signals that a researcher or AI agent can inspect, verify, compare, and export.
 
+## Example Output
+
+![Example BioCompute verification report](docs/assets/example-verification-report.png)
+
+Example verification report for a hypertrophic-scarring target-discovery run. The report is an illustrative research artifact, not a validated therapeutic recommendation.
+
 ## Ask An AI Agent To Run It
 
 Give an AI agent this repository and a task in this shape:
