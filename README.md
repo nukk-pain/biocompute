@@ -44,8 +44,8 @@ This writes a run directory under `archive/runs/`. To re-read it later:
 uv run biocompute report archive/runs/<run_dir>/
 ```
 
-By default BioCompute uses your local `claude` CLI as the LLM backend. To use an
-OpenAI-compatible API instead, or for the full command set, see
+By default BioCompute uses your local `claude` CLI as the LLM backend. To use
+OpenAI, OpenRouter, Codex auth, or the full command set, see
 [`docs/AI_USAGE.md`](docs/AI_USAGE.md).
 
 ## Who should use this?

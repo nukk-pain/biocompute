@@ -12,19 +12,42 @@ uv sync
 
 BioCompute uses LLMs for hypothesis generation, critique, and some evidence interpretation steps.
 
-Default backend: local `claude` CLI.
+Backend selection is explicit through `BIOCOMPUTE_LLM_BACKEND`.
+
+Local Claude CLI backend:
 
 ```bash
-# default behavior
 export BIOCOMPUTE_LLM_BACKEND=claude
 ```
 
-OpenAI-compatible backend:
+Official OpenAI API backend:
 
 ```bash
 export BIOCOMPUTE_LLM_BACKEND=openai
 export OPENAI_API_KEY=your_key_here
 ```
+
+OpenRouter backend:
+
+```bash
+export BIOCOMPUTE_LLM_BACKEND=openrouter
+export OPENROUTER_API_KEY=your_key_here
+
+# Optional OpenRouter attribution headers
+export OPENROUTER_SITE_URL=https://your-site.example
+export OPENROUTER_APP_NAME=BioCompute
+```
+
+Codex auth backend:
+
+```bash
+codex login
+export BIOCOMPUTE_LLM_BACKEND=codex
+```
+
+`openai` uses only `OPENAI_API_KEY`. `openrouter` uses only
+`OPENROUTER_API_KEY`. `codex` reads `~/.codex/auth.json` created by
+`codex login`.
 
 Optional API keys for higher rate limits:
 
