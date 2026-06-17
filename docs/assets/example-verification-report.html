@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>BioCompute Example Verification Report</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="example-report.css" />
+</head>
+<body>
+<h1 id="literature-verification-report">Literature Verification
+Report</h1>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Gene</th>
+<th>Fitness</th>
+<th>Papers</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMAD3</td>
+<td>0.812</td>
+<td>3</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>NOTCH1</td>
+<td>0.713</td>
+<td>1</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>GLI2</td>
+<td>0.700</td>
+<td>0</td>
+<td>No evidence</td>
+</tr>
+</tbody>
+</table>
+<h2 id="overall-assessment">Overall Assessment</h2>
+<p>Of 3 targets verified: 0 strong, 2 moderate, 0 weak, 1 no
+evidence.</p>
+<h2 id="target-details">Target Details</h2>
+<h3 id="smad3">SMAD3</h3>
+<p>SMAD3 has moderate evidence as a therapeutic target for Hypertrophic
+Scarring (3 papers, 266 citations)</p>
+<p><strong>Prior Knowledge Framing:</strong></p>
+<ul>
+<li>Evidence maturity: L3 in vivo support</li>
+<li>Framing summary: SMAD3 is well-validated in vitro and in a rabbit
+ear in vivo model as a central mediator of TGF-β1-driven fibroblast
+activation and collagen deposition in hypertrophic scarring, with
+multiple pharmacological inhibitors (curcumin, ivermectin) showing
+preclinical efficacy, but no human clinical trial evidence exists in
+these abstracts.</li>
+<li>Known facts:
+<ul>
+<li>SMAD3 phosphorylation downstream of TGF-β1 drives fibroblast
+activation, α-SMA expression, and collagen deposition in hypertrophic
+scar</li>
+<li>SMAD3 (not SMAD2) mediates mechanical compression-induced MMP9
+upregulation in hypertrophic scar fibroblasts</li>
+<li>SMAD3 regulates collagen I/III mRNA expression, while procollagen-I
+secretion is controlled via a parallel TAK1 pathway independent of
+SMAD3</li>
+<li>TLP modulates the SMAD2/SMAD3 phosphorylation balance, with TLP
+overexpression in hypertrophic scar tissue positively correlating with
+collagen synthesis</li>
+</ul></li>
+<li>Attempted approaches:
+<ul>
+<li>Curcumin: inhibits SMAD3 phosphorylation and nuclear translocation
+in TGF-β1-stimulated fibroblasts; validated in rabbit ear hypertrophic
+scar model in vivo</li>
+<li>Ivermectin: suppresses SMAD3 phosphorylation and reduces collagen I,
+α-SMA, and CCN2 in hypertrophic scar fibroblasts in vitro</li>
+<li>siRNA-mediated SMAD3 knockdown: used in vitro to dissect
+SMAD3-specific roles in MMP9 expression and collagen regulation under
+compressive stress</li>
+<li>Lentiviral TLP overexpression: modulates SMAD3 phosphorylation
+balance in dermal fibroblasts to study collagen synthesis</li>
+</ul></li>
+<li>Remaining gaps:
+<ul>
+<li>No clinical trials targeting SMAD3 directly in hypertrophic scarring
+are described in these abstracts</li>
+<li>Ivermectin and curcumin data are preclinical only; no human-subject
+efficacy data for SMAD3 inhibition in hypertrophic scar is present</li>
+<li>The role of SMAD3 in the secretory/trafficking pathway for
+procollagen-I appears independent of collagen transcription, suggesting
+SMAD3 inhibition alone may be insufficient to fully block fibrosis</li>
+<li>Contradictory TLP data: TLP inhibits SMAD3 phosphorylation yet is
+overexpressed in hypertrophic scar and promotes collagen synthesis,
+suggesting SMAD2 may compensate</li>
+</ul></li>
+</ul>
+<p><strong>Key Papers:</strong></p>
+<ul>
+<li>PMID:37400988 (2024) — Curcumin alleviates hypertrophic scarring by
+inhibiting fibroblast activation and regulating tissue
+inflammation.</li>
+<li>PMID:33955514 (2021) — Ivermectin inhibits cell proliferation and
+the expression levels of type I collagen, α‑SMA and CCN2 in hypertrophic
+scar fibroblasts.</li>
+<li>PMID:25166894 (2014) — Mechanical compression upregulates MMP9
+through SMAD3 but not SMAD2 modulation in hypertrophic scar
+fibroblasts.</li>
+</ul>
+<p><strong>Clinical Trial Status:</strong></p>
+<ul>
+<li>Summary: No matching ClinicalTrials.gov studies found.</li>
+<li>Completed studies: 0</li>
+<li>Stopped studies: 0</li>
+<li>Phase 2/3 failures: 0</li>
+</ul>
+<p><strong>LLM Clinical Feasibility:</strong></p>
+<ul>
+<li>Feasibility score: 0.500 (Moderate)</li>
+<li>Approved drugs: None reported</li>
+<li>Phase 2/3 failed drugs: None reported</li>
+<li>Drug verification: no_reference</li>
+<li>Rationale: LLM assessment unavailable</li>
+</ul>
+<p><strong>Pathway-Level Trial Note:</strong></p>
+<ul>
+<li>Pathway: TGF-β/SMAD3</li>
+<li>Summary: Direct SMAD3 clinical programs remain sparse, but upstream
+TGF-β pathway drugs show a mixed translational record that is relevant
+to scar/fibrosis strategy.</li>
+<li>P144 peptide (TGF-β1 inhibitor): Phase 2 skin-fibrosis program
+completed without visible follow-up development.</li>
+<li>Fresolimumab (anti-TGF-β mAb): early clinical testing reached Phase
+1 but programs were discontinued.</li>
+<li>Galunisertib (ALK5 / TGF-βRI inhibitor): advanced to Phase 2 in
+oncology, with hepatotoxicity concerns limiting enthusiasm.</li>
+<li>Interpretation: The pathway appears clinically actionable, but
+systemic TGF-β blockade has shown tractability and safety limits; that
+supports exploring local or modality-constrained SMAD3 strategies rather
+than assuming broad pathway inhibition is sufficient.</li>
+<li>Source note: Curated from
+docs/findings/scar-platform-targets.md</li>
+</ul>
+<h3 id="notch1">NOTCH1</h3>
+<p>NOTCH1 has moderate evidence as a therapeutic target for Hypertrophic
+Scarring (1 papers, 280 citations)</p>
+<p><strong>Prior Knowledge Framing:</strong></p>
+<ul>
+<li>Evidence maturity: L3 in vivo support</li>
+<li>Framing summary: NOTCH1 is identified as an upregulated hub gene in
+keloid keratinocytes via transcriptomic profiling, and ASC
+subpopulations targeting NOTCH1-associated pathways prevented
+hypertrophic scar formation in a porcine model, but direct NOTCH1
+inhibition has not been tested and no human evidence exists.</li>
+<li>Known facts:
+<ul>
+<li>NOTCH1 expression is upregulated in keloid keratinocytes (KK) and
+implicated in KK development</li>
+<li>NOTCH1 is identified as a hub gene in keloid pathogenesis via
+protein-protein interaction mapping and gene expression profiling</li>
+</ul></li>
+<li>Attempted approaches:
+<ul>
+<li>Adipose-derived mesenchymal stromal cell (ASC) subpopulations that
+molecularly interact with NOTCH1 were identified and tested</li>
+<li>ASC subpopulations enriched for inhibitory activity against keloid
+keratinocytes were administered in a miniature pig hypertrophic scar
+model, with effective prevention of scar formation</li>
+</ul></li>
+<li>Remaining gaps:
+<ul>
+<li>Direct functional validation of NOTCH1 knockdown or inhibition in
+keloid keratinocytes is not reported in this abstract</li>
+<li>The specific molecular mechanism by which ASCs interact with NOTCH1
+to suppress KK development is not detailed</li>
+<li>No human clinical data on NOTCH1-targeting strategies for
+hypertrophic scarring or keloids exists in this abstract</li>
+</ul></li>
+</ul>
+<p><strong>Key Papers:</strong></p>
+<ul>
+<li>PMID:41511717 (2026) — Single-cell transcriptomic profiling
+identifies therapeutic subpopulations of adipose-derived mesenchymal
+stromal cells for human keloid management.</li>
+</ul>
+<p><strong>Clinical Trial Status:</strong></p>
+<ul>
+<li>Summary: No matching ClinicalTrials.gov studies found.</li>
+<li>Completed studies: 0</li>
+<li>Stopped studies: 0</li>
+<li>Phase 2/3 failures: 0</li>
+</ul>
+<p><strong>LLM Clinical Feasibility:</strong></p>
+<ul>
+<li>Feasibility score: 0.500 (Moderate)</li>
+<li>Approved drugs: None reported</li>
+<li>Phase 2/3 failed drugs: None reported</li>
+<li>Drug verification: no_reference</li>
+<li>Rationale: LLM assessment unavailable</li>
+</ul>
+<h3 id="gli2">GLI2</h3>
+<p>GLI2 currently has no direct literature evidence as a therapeutic
+target for Hypertrophic Scarring (0 papers, 280 citations)</p>
+<p><strong>Prior Knowledge Framing:</strong></p>
+<ul>
+<li>Evidence maturity: L0 hypothesis-stage signal</li>
+<li>Framing summary: No usable PubMed abstracts available for
+prior-knowledge assessment.</li>
+<li>Known facts:
+<ul>
+<li>No stored items recorded.</li>
+</ul></li>
+<li>Attempted approaches:
+<ul>
+<li>No stored items recorded.</li>
+</ul></li>
+<li>Remaining gaps:
+<ul>
+<li>No stored items recorded.</li>
+</ul></li>
+</ul>
+<p>No papers found in PubMed for this target.</p>
+<p><strong>Clinical Trial Status:</strong></p>
+<ul>
+<li>Summary: No matching ClinicalTrials.gov studies found.</li>
+<li>Completed studies: 0</li>
+<li>Stopped studies: 0</li>
+<li>Phase 2/3 failures: 0</li>
+</ul>
+<p><strong>LLM Clinical Feasibility:</strong></p>
+<ul>
+<li>Feasibility score: 0.500 (Moderate)</li>
+<li>Approved drugs: None reported</li>
+<li>Phase 2/3 failed drugs: None reported</li>
+<li>Drug verification: no_reference</li>
+<li>Rationale: LLM assessment unavailable</li>
+</ul>
+</body>
+</html>
